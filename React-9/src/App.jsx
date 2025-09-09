@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AppointmentForm from "./components/AppointmentForm";
-import AppointmentTable from "./components/AppointmentTable";
+import AppointmentTable from "./Components/AppointmentTable";
 import "./App.css";
 
 function App() {
