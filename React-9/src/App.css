@@ -1,0 +1,132 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #f9f9f9; 
+}
+
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px;
+  max-width: 600px;  
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-btn {
+  grid-column: span 2; /* button takes full row */
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-btn:hover {
+  background: #0056b3;
+}
+
+.table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.toast-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  width: 90%;
+  max-width: 900px;
+  background: #000; /* black background */
+  color: #fff;      /* white text */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.table th {
+  background: #222; /* slightly lighter black for header */
+  color: #fff;
+  padding: 12px;
+  text-align: center;
+}
+
+.table td {
+  background: #000; /* pure black for rows */
+  color: #fff;      /* white text */
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #444; /* subtle row separation */
+}
+
+.table tr:hover td {
+  background: #111; /* highlight row on hover */
+}
+
+#edit-btn,
+#delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+#edit-btn {
+  background: #007bff;
+  color: white;
+}
+
+#delete-btn {
+  background: #dc3545;
+  color: white;
+}
