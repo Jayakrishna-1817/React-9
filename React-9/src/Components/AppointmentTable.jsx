@@ -1,6 +1,6 @@
 import React from "react";
 
-function AppointmentTable({ appointments, onDelete, onEdit }) {
+export default function AppointmentTable({ appointments, handleEdit, handleDelete, openActionFor, setOpenActionFor }) {
   return (
     <table className="table">
       <thead>
@@ -17,19 +17,37 @@ function AppointmentTable({ appointments, onDelete, onEdit }) {
         </tr>
       </thead>
       <tbody>
-        {appointments.map((appt, index) => (
-          <tr key={index}>
-            <td>{appt.name}</td>
-            <td>{appt.age}</td>
-            <td>{appt.phoneNumber}</td>
-            <td>{appt.doctorName}</td>
-            <td>{appt.gender}</td>
-            <td>{appt.visitDate}</td>
-            <td>{appt.visitTime}</td>
-            <td>{appt.visitType}</td>
-            <td>
-              <button id="edit-btn" onClick={() => onEdit(index)}>Edit</button>
-              <button id="delete-btn" onClick={() => onDelete(index)}>Delete</button>
+        {appointments.map((app) => (
+          <tr key={app.id}>
+            <td>{app.name}</td>
+            <td>{app.age}</td>
+            <td>{app["phone-number"]}</td>
+            <td>{app["dr-name"]}</td>
+            <td>{app.gender}</td>
+            <td>{app["visit-date"]}</td>
+            <td>{app["visit-time"]}</td>
+            <td>{app["visit-type"]}</td>
+            <td style={{ position: "relative" }}>
+              <button
+                id="action-btn"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenActionFor(openActionFor === app.id ? null : app.id);
+                }}
+              >
+                ⋮
+              </button>
+              {openActionFor === app.id && (
+                <div className="action-menu">
+                  <div id="edit-btn" onClick={() => { handleEdit(app); setOpenActionFor(null); }}>
+                    Edit
+                  </div>
+                  <div id="delete-btn" onClick={() => handleDelete(app.id)}>
+                    Delete
+                  </div>
+                </div>
+              )}
             </td>
           </tr>
         ))}
@@ -37,5 +55,3 @@ function AppointmentTable({ appointments, onDelete, onEdit }) {
     </table>
   );
 }
-
-export default AppointmentTable;

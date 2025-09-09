@@ -1,97 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-function AppointmentForm({ onSave, editData }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    phoneNumber: "",
-    doctorName: "",
-    gender: "",
-    visitDate: "",
-    visitTime: "",
-    visitType: "",
-  });
-
-  useEffect(() => {
-    if (editData) {
-      setFormData(editData);
-    }
-  }, [editData]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const validateForm = () => {
-    const { name, age, phoneNumber, doctorName, gender, visitDate, visitTime, visitType } = formData;
-
-    if (!name || !age || !phoneNumber || !doctorName || !gender || !visitDate || !visitTime || !visitType) {
-      showToast("All fields are required.");
-      return false;
-    }
-
-    const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phoneNumber)) {
-      showToast("Invalid phone number");
-      return false;
-    }
-
-    const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/;
-    if (!timeRegex.test(visitTime)) {
-      showToast("Invalid time format (e.g. 9:30 AM)");
-      return false;
-    }
-
-    return true;
-  };
-
-  const showToast = (message) => {
-    const toast = document.createElement("div");
-    toast.className = "toast-message";
-    toast.innerText = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-      toast.remove();
-    }, 3000);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      onSave(formData);
-      setFormData({
-        name: "",
-        age: "",
-        phoneNumber: "",
-        doctorName: "",
-        gender: "",
-        visitDate: "",
-        visitTime: "",
-        visitType: "",
-      });
-    }
-  };
+export default function AppointmentForm({ form, setForm, handleSubmit, isUpdating, resetForm }) {
+  function handleChange(e) {
+    const { id, value } = e.target;
+    setForm((prev) => ({ ...prev, [id]: value }));
+  }
 
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit} className="form-grid">
-        <input id="name" name="name" placeholder="Patient Name" value={formData.name} onChange={handleChange} />
-        <input id="age" name="age" placeholder="Age" value={formData.age} onChange={handleChange} />
-        <input id="phone-number" name="phoneNumber" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} />
-        <input id="dr-name" name="doctorName" placeholder="Doctor Name" value={formData.doctorName} onChange={handleChange} />
-        <input id="gender" name="gender" placeholder="Gender" value={formData.gender} onChange={handleChange} />
-        <input id="visit-date" name="visitDate" type="date" value={formData.visitDate} onChange={handleChange} />
-        <input id="visit-time" name="visitTime" placeholder="Visit Time (e.g. 9:30 AM)" value={formData.visitTime} onChange={handleChange} />
-        <input id="visit-type" name="visitType" placeholder="Visit Type" value={formData.visitType} onChange={handleChange} />
+      <form onSubmit={handleSubmit}>
+        <div className="form-grid">
+          <div>
+            <label>Patient Name</label>
+            <input id="name" value={form.name} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Age</label>
+            <input id="age" value={form.age} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Phone Number</label>
+            <input id="phone-number" value={form["phone-number"]} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Doctor Name</label>
+            <input id="dr-name" value={form["dr-name"]} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Gender</label>
+            <input id="gender" value={form.gender} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Visit Date</label>
+            <input id="visit-date" type="date" value={form["visit-date"]} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Visit Time</label>
+            <input id="visit-time" placeholder="e.g. 9:30 AM" value={form["visit-time"]} onChange={handleChange} />
+          </div>
+          <div>
+            <label>Visit Type</label>
+            <input id="visit-type" value={form["visit-type"]} onChange={handleChange} />
+          </div>
+        </div>
 
-        <button id="book-btn" type="submit" className="form-btn">
-          {editData ? "Update Appointment" : "Book Appointment"}
-        </button>
+        <div className="btn-row">
+          <button id="book-btn" type="submit">
+            {isUpdating ? "Update Appointment" : "Book Appointment"}
+          </button>
+          {isUpdating && (
+            <button type="button" onClick={resetForm}>
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
     </div>
   );
 }
-
-export default AppointmentForm;
