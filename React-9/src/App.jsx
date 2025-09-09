@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppointmentForm from "./components/AppointmentForm";
+import AppointmentForm from "./Components/AppointmentForm";
 import AppointmentTable from "./Components/AppointmentTable";
 import "./App.css";
 
